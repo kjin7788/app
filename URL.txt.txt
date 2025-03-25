@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 https://github.com/kjin7788/streamlit-deloy.git
+=======
+https://github.com/kjin7788/streamlit-deloy.git
+>>>>>>> a6315926c975e074927180131bfe0db7be008c5d
