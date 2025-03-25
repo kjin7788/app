@@ -11,8 +11,12 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 # **✅ Streamlit 페이지 설정 (가장 위에 위치해야 함)**
 st.set_page_config(page_title="Diabetes Prediction Dashboard", layout="wide")
 
-# 데이터 불러오기
-df = pd.read_csv("data/diabetes.csv")
+# **데이터 불러오기**
+@st.cache_data
+def load_data():
+    return pd.read_csv("data/diabetes.csv")
+
+df = load_data()
 
 # Step1: 결측치 확인 및 이상치 제거
 def remove_outliers(df, column):
@@ -37,8 +41,13 @@ X_scaled = scaler.fit_transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 # Step5: 모델 학습
-model = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
+@st.cache_resource
+def train_model():
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    return model
+
+model = train_model()
 
 # Step6: 예측 및 성능 평가
 y_pred = model.predict(X_test)
@@ -64,18 +73,6 @@ def home():
     이 데이터셋은 **Pima Indians**의 여성들에게서 수집된 건강 데이터를 포함하고 있습니다. 주로 **당뇨병**의 유무를 예측하는 데 사용됩니다.
     - **diabetes.csv** 파일은 8개의 특성(feature)과 1개의 타겟 변수(target)인 **Outcome**을 포함하고 있습니다.
     - **Outcome**이 0인 경우 **당뇨병이 없다**고 표시되며, 1인 경우 **당뇨병이 있다**고 표시됩니다.
-    - 이 데이터셋은 당뇨병 예측을 위한 다양한 신체 지표를 포함하고 있으며, 각 샘플은 **당뇨병**의 발병 여부를 예측하는 데 중요한 역할을 합니다.
-    
-    #### 당뇨병 데이터 개요
-    - **Pregnancies**: 당뇨병에 영향을 줄 수 있는 임신 횟수. 
-    - **Glucose**: 혈액 내 포도당 수치.
-    - **BloodPressure**: 혈압 수치.
-    - **SkinThickness**: 피부 두께.
-    - **Insulin**: 인슐린 수치.
-    - **BMI**: 체질량지수.
-    - **DiabetesPedigreeFunction**: 가족력 지수.
-    - **Age**: 나이.
-    - **Outcome**: 당뇨 여부 (0: 정상, 1: 당뇨병).
     """)
 
 # **EDA (탐색적 데이터 분석)**
