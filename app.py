@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -196,7 +195,7 @@ elif menu == "Data Analysis":
     data_analysis()
 elif menu == "Model Performance":
     model_performance()
-=======
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px

@@ -3,4 +3,4 @@ pandas
 matplotlib
 seaborn
 numpy
-scikit-learn
+scikit-learnpip install -r requirements.txt
