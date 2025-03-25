@@ -393,3 +393,4 @@ elif menu == "Data Analysis":
     data_analysis()
 elif menu == "Model Performance":
     model_performance()
+    
